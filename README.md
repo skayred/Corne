@@ -62,21 +62,43 @@ The matrix configuration uses GPIO pins on the nRF52840 Pro Micro clone. Below a
 
 ![pinout](https://github.com/user-attachments/assets/ae1bf9eb-8071-4a8f-8cac-c95a39f61f9e)
 
-#### Rows (Connected to `row-gpios`):
-- Row 0: Pin 21
-- Row 1: Pin 20
-- Row 2: Pin 19
-- Row 3: Pin 18
+#### How Rows and Columns Are Numbered
 
-#### Columns (Connected to `col-gpios`):
-- Column 0: Pin 2
-- Column 1: Pin 7
-- Column 2: Pin 6
-- Column 3: Pin 5
-- Column 4: Pin 4
-- Column 5: Pin 3
+- **Rows**: Rows are always numbered from top to bottom on both halves.
+- **Columns**: Columns are always numbered from left to right (as viewed from the back of the plate (where the wiring is done)).
 
-These pins are defined in the firmware and are configured for GPIO matrix scanning.
+⚠️ **Note**: If you accidentally solder the rows or columns to the wrong pins, you do not need to desolder. The mappings can be fixed in the firmware configuration files:
+- `corne.dtsi`: Defines rows for both halves.
+- `corne_left.overlay`: Defines columns for the left half.
+- `corne_right.overlay`: Defines columns for the right half.
+
+#### Left Half Pin Assignments
+- **Rows (Connected to `row-gpios`)**:
+  - Row 0: Pin 21
+  - Row 1: Pin 20
+  - Row 2: Pin 19
+  - Row 3: Pin 18
+- **Columns (Connected to `col-gpios`)**:
+  - Column 0: Pin 2
+  - Column 1: Pin 7
+  - Column 2: Pin 6
+  - Column 3: Pin 5
+  - Column 4: Pin 4
+  - Column 5: Pin 3
+
+#### Right Half Pin Assignments
+- **Rows (`row-gpios`)**:
+  - Row 0: Pin 21
+  - Row 1: Pin 20
+  - Row 2: Pin 19
+  - Row 3: Pin 18
+- **Columns (`col-gpios`)**:
+  - Column 0: Pin 3
+  - Column 1: Pin 4
+  - Column 2: Pin 5
+  - Column 3: Pin 6
+  - Column 4: Pin 7
+  - Column 5: Pin 2
 
 ### Firmware Setup
 This keyboard uses ZMK firmware. The left half acts as the main controller that connects to your device.
@@ -96,9 +118,12 @@ If you forgot the keyboard from your device and can't reconnect:
 ├── .github/workflows/
 │   └── build.yml
 ├── 3DFiles/
-│   ├── Case_Left.stl
-│   ├── Case_Right.stl
-│   └── PlateCorne.stl
+│   ├── STEP/
+│   │   └── CorneSTEP.step
+│   ├── STL/
+│   │   ├── Case_Left.stl
+│   │   ├── Case_Right.stl
+│   │   └── PlateCorne.stl
 ├── config/
 │   ├── boards/shields/corne/
 │   │   ├── corne_left.conf
